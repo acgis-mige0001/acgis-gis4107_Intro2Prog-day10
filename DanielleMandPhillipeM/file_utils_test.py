@@ -21,6 +21,7 @@
 
 import sys
 import inspect
+import os
 import file_utils
 reload(file_utils)
 
@@ -48,7 +49,7 @@ def template_for_test_functions():
     """Docstring"""
     expected = ""
     actual = ""
-    print_test_results(func, desc, expected, actual)
+    print_test_results(func, expected, actual)
 
 # ------------------------------------------------------------------------------
 
@@ -69,14 +70,20 @@ def test_get_file_content():
     actual = file_utils.get_file_content(file_name)
     print_test_results(file_utils.get_file_content, expected, actual)
 
-
-def test_get_missing_file_content():
     """Non-existent file"""
     script_folder = os.path.dirname(os.path.abspath(__file__))
     file_name = os.path.join(script_folder, "data", "bogus.txt")
     expected = '{} does not exist'.format (file_name)
     actual = file_utils.get_file_content(file_name)
     print_test_results(file_utils.get_file_content, expected, actual)
+
+def test_write_to_file():
+    """Write to a file"""
+    script_folder = os.path.dirname(os.path.abspath(__file__))
+    file_name = os.path.join(script_folder, "data", "TestFile.txt")
+    expected = file_utils.write_to_file(file_name, "Thank you")
+    actual = file_utils.write_to_file(file_name, "Thank you")
+    print_test_results(file_utils.write_to_file, expected, actual)
 
 # ------------------------------------------------------------------------------
 # Test template helper functions.  Code in this section should not need to
