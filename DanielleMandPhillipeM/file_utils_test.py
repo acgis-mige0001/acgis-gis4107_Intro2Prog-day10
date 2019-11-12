@@ -63,14 +63,20 @@ def test_function():
 
 def test_get_file_content():
     """Valid file"""
-    expected = ""
-    actual = ""
+    script_folder = os.path.dirname(os.path.abspath(__file__))
+    file_name = os.path.join(script_folder, "data", "demo.txt")
+    expected = "hello world"
+    actual = file_utils.get_file_content(file_name)
     print_test_results(file_utils.get_file_content, expected, actual)
 
-##    """Non-existent file"""
-##    expected = "dne.txt"
-##    actual = "dne.txt"
-##    print_test_results(file_utils.get_file_content, expected, actual)
+
+def test_get_missing_file_content():
+    """Non-existent file"""
+    script_folder = os.path.dirname(os.path.abspath(__file__))
+    file_name = os.path.join(script_folder, "data", "bogus.txt")
+    expected = '{} does not exist'.format (file_name)
+    actual = file_utils.get_file_content(file_name)
+    print_test_results(file_utils.get_file_content, expected, actual)
 
 # ------------------------------------------------------------------------------
 # Test template helper functions.  Code in this section should not need to
